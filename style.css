@@ -1,0 +1,11 @@
+canvas {
+    outline: 1px solid #000000;
+}
+
+#botoes_menu {
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    z-index: 99;
+    background-color: rgba(0, 0, 0, .6);
+}
