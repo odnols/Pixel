@@ -1,6 +1,4 @@
-const width = 768;
-const height = 1152;
-let canvas, canvas2
+let width = 768, height = 1152, canvas, canvas2
 
 function get(alvo) {
 
@@ -32,6 +30,10 @@ function preview_canvas() {
         let canvas_width = parseInt(this.width / resolucao) * resolucao
         let canvas_height = parseInt(this.height / resolucao) * resolucao
 
+        // Alterando o tamanho do canvas para processamento
+        width = canvas_width
+        height = canvas_height
+
         canvas.height = canvas_height
         canvas.width = canvas_width
 
@@ -59,6 +61,8 @@ function pixaliza() {
 
     canvas2.height = canvas.height * escala
     canvas2.width = canvas.width * escala
+
+    console.log(parseInt(width / resolucao), parseInt(height / resolucao))
 
     for (let i = 0; i < parseInt(width / resolucao); i++) {
         for (let z = 0; z < parseInt(height / resolucao); z++) {
