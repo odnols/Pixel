@@ -10,9 +10,13 @@
     <canvas id="canvas"></canvas>
 
     <div id="botoes_menu">
-        <br>Resolução <input type="text" id="resolucao" value="16">
-        <br><br>Escala <input type="text" id="escala" value="1">
-        <br><br><input id="input" type="file" />
+        <br>Resolução <input type="text" id="resolucao" value="16" onchange="preview_canvas()">
+        <br><br>Escala <input type="text" id="escala" value="1" onchange="preview_canvas()">
+        <br><br><input id="input" type="file" accept="image/*" onchange="preview_canvas()" />
+    </div>
+
+    <div id="loading">
+        <h3>Carregando a ceira...</h3>
     </div>
 
 </body>
