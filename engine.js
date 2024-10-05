@@ -1,4 +1,4 @@
-let width, height, canvas = get('preview'), canvas2 = get('canvas')
+let width, height, resolucao, escala, canvas = get('preview'), canvas2 = get('canvas'), idata
 
 function get(alvo) {
 
@@ -23,7 +23,8 @@ function preview_canvas() {
 
     img.onload = function () {
 
-        const resolucao = parseInt(get("resolucao").value)
+        resolucao = parseInt(get("resolucao").value)
+        escala = parseInt(get("escala").value)
 
         let canvas_width = parseInt(this.width / resolucao) * resolucao
         let canvas_height = parseInt(this.height / resolucao) * resolucao
@@ -36,30 +37,30 @@ function preview_canvas() {
         canvas.width = canvas_width
 
         context.drawImage(img, 0, 0, canvas_width, canvas_height)
-        pixaliza()
+
+        canvas2.height = canvas.height * escala
+        canvas2.width = canvas.width * escala
+
+        get("loading").style.display = "block"
+        get("info_loading").innerHTML = `Carregando ${(parseInt(width / resolucao) * parseInt(height / resolucao)).toLocaleString("pt-br")} pontos`
+
+        setTimeout(() => {
+            pixaliza()
+        }, 200)
     }
 
     fileReader.readAsDataURL(file[0])
-
-    get("loading").style.display = "block"
 }
 
 function pixaliza() {
 
-    // Quantidade de pixels por chunk
-    const escala = parseInt(get("escala").value)
-    let resolucao = parseInt(get("resolucao").value)
-
+    // Coletando as cores destaques da região do canvas
     const context = canvas.getContext("2d")
     const context2 = canvas2.getContext("2d")
-
-    canvas2.height = canvas.height * escala
-    canvas2.width = canvas.width * escala
 
     for (let i = 0; i < parseInt(width / resolucao); i++) {
         for (let z = 0; z < parseInt(height / resolucao); z++) {
 
-            // Coletando as cores destaques da região do canvas
             const idata = context.getImageData(i * resolucao, z * resolucao, i > 0 ? i * resolucao : resolucao, z > 0 ? z * resolucao : resolucao).data
 
             // Desenhando a cor destaque no novo canvas
